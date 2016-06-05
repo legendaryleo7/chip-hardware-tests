@@ -8,7 +8,7 @@ GPIO.setup("XIO-P1", GPIO.IN)
 
 
 
-def readinput()
+def readinput():
   if GPIO.input("XIO-P0"):
     print(1)
   else:
