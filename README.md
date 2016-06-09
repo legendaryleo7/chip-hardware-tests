@@ -1,6 +1,6 @@
-# chip-hardware-tests
+# chip-vide
 
-This is just a series of tests to test different peripherals on the CHIP.
+
 
 #Prerequisites
 
@@ -26,4 +26,17 @@ sudo python setup.py install
 cd ..
 sudo rm -rf CHIP_IO
 ````
+
+Gaugette
+https://github.com/legendaryleo7/py-gaugette/tree/CHIP-support
+
+ivPID
+https://github.com/ivmech/ivPID
+
+DS18b20 Library
+https://github.com/timofurrer/w1thermsensor
+
+Adafruit Python CharLCD Library
+https://github.com/adafruit/Adafruit_Python_CharLCD
+
 
