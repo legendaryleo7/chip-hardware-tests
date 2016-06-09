@@ -72,17 +72,6 @@ class SensorInput:
 	def get_rotary_delta2():
 		return self.encoder2.get_delta()
 
-class RelayOutput:
-	def __init__(self, relay_pin):
-		#define the relay pin:
-		self.relayPIN = relay_pin
-		GPIO.BaseGPIO.setup(self, self.relayPIN, OUT,)
-	def relay_on(self):
-		GPIO.BaseGPIO.output(self, self.relayPIN, True)
-	def relay_off(self):
-		GPIO.BaseGPIO.output(self, self.relayPIN, False)
-
-
 #Let's Go!
 class SousVide ()
 	def __init__():
