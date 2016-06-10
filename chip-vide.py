@@ -22,6 +22,7 @@ encoder2_pinB ="XIO-P3"
 encoder2_sw ="XIO-P5"
 
 # Insert LCD PIN Assignments Here
+# This came from the BBB and will not work with CHIP
 # lcd_rs = 'P8_8'
 # lcd_en = 'P8_10'
 # lcd_d4 = 'P8_18'
