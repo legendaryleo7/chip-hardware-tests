@@ -27,8 +27,13 @@ cd ..
 sudo rm -rf CHIP_IO
 ````
 
-Gaugette
-https://github.com/legendaryleo7/py-gaugette/tree/CHIP-support
+<a href="https://github.com/legendaryleo7/py-gaugette/tree/CHIP-support">Gaugette</a>
+````
+git clone -b CHIP-support https://github.com/legendaryleo7/py-gaugette.git
+cd CHIP-support
+sudo python setup.py install
+````
+
 
 ivPID
 https://github.com/ivmech/ivPID
