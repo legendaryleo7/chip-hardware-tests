@@ -74,6 +74,7 @@ class SousVide ():
 		delta_encoder2 =encoder2.get_delta()
 
 		pid.Setpoint += delta_encoder1
+ #this probably is the wrong time method
 		time_remaining += delta_encoder2 * time.minutes(default_time_steps)
 
 	def time():
