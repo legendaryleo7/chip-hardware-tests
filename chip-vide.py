@@ -1,4 +1,4 @@
-import Adafruit_GPIO.GPIO as GPIO
+import Adafruit_GPIO.GPIO.CHIPGPIOAdapter as GPIO
 import gaugette.rotary_encoder
 import gaugette.switch
 import Adafruit_CharLCD as LCD
@@ -21,6 +21,12 @@ encoder2_pinA = "XIO-P2"
 encoder2_pinB ="XIO-P3"
 encoder2_sw ="XIO-P5"
 
+pins = list(relay_pin, encoder1_pinA, encoder1_pinB, encoder1_sw, encoder2_pinA, encoder2_pinB, encoder2_sw)
+
+for i in pins:
+	GPIO.setup(self, pins[i], GPIO.IN, pull_up_down=PUD_OFF):
+	pins[i] = GPIO.input(self, pins[i])
+
 # Insert LCD PIN Assignments Here
 # This came from the BBB and will not work with CHIP
 # lcd_rs = 'P8_8'
@@ -42,25 +48,25 @@ default_time_steps = 5 #in minutes
 tempsensor = W1ThermSensor()
 current_temperature = tempsensor.get_temperature(W1ThermSensor.DEGREES_F)
 
+encoder1=rotary_encoder.RotaryEncoder.Worker(encoder1_pinA,  encoder1_pinB)
+encoder1.run()
+encoder2=rotary_encoder.RotaryEncoder.Worker(encoder2_pinA,  encoder2_pinB)
+encoder2.run()
+lcd = LCD.Adafruit_RGBCharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7,
+                         	lcd_columns, lcd_rows, lcd_red, lcd_green, lcd_blue)
+lcd.set_color(0.0, 0.0, 1.0)
+lcd.clear()
+lcd.message('Hello There!')
+time.sleep(1)
 
-#Let's Go!
+pid = PID()
+pid.SetPoint = default_temp
+pid.setSampleTime(self, 0.5)
+time_remaining = default_time
+start_time = datetime.datetime.now()
+
 class SousVide ():
-	def __init__():
-        lcd = LCD.Adafruit_RGBCharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7,
-                              			lcd_columns, lcd_rows, lcd_red, lcd_green, lcd_blue)
-		lcd.set_color(0.0, 0.0, 1.0)
-		lcd.clear()
-		lcd.message('Hello There!')
-		time.sleep(1)
-        encoder1=rotary_encoder.RotaryEncoder.Worker(encoder1_pinA,  encoder1_pinB)
-        encoder1.run()
-        encoder2=rotary_encoder.RotaryEncoder.Worker(encoder2_pinA,  encoder2_pinB)
-        encoder2.run()
-        
-        pid = PID()
-		pid.SetPoint = default_temp
-		pid.setSampleTime(self, 0.5)
-		time_remaining = default_time
+	
 	def regulate_temperature():
 		While time_remaining > 0:
 			feedback = current_temperature
@@ -75,21 +81,16 @@ class SousVide ():
 
 		pid.Setpoint += delta_encoder1
  #this probably is the wrong time method
-		time_remaining += delta_encoder2 * time.minutes(default_time_steps)
+		time_delta = time.timedelta.minutes(
 
 	def time():
-		while (time_remaining >= 0):
-			time.sleep(1)
-			time_remaining -= 1
-			return time_remaining
+		delta_time = start_time - datetime.datetime.now()
+		elapsed_time = delta_time.hour() + ":" + delta_time.minute()
+		return elapsed_time
     def update_screen()
         lcd.message("Temp:"+round(current_temperature, 1)+"F TimeGoal:"+pid.SetPoint +"F   "+time(time_remaining))
 
-# 
-#   # # # # # # # # # # # # # # # # 
-#	 T  e  m p  :  X X  X .  X  F     T  i  m e  :
-#	 G  o  a L  :  X  X X F         0  0  :  0  0  
-# 
+
 
 
 
