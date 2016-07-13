@@ -47,7 +47,7 @@ https://github.com/adafruit/Adafruit_Python_CharLCD
 #Usage
 chip-vide-simple.py
 
-This script will print the PID value and current temperature every 5 seconds. It will also set the GPIO pin to HIGH to turn off the relay, and to LOW to turn it on.
+This script will print the PID value and current temperature every 5 seconds. It will also set the GPIO pin to HIGH to turn off the relay, and to LOW to turn it on as mandated by the PID output.
 `````
 sudo modprobe w1_therm
 #Control-C out of this command if it hangs. It should still work.
