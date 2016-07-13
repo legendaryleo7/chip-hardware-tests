@@ -44,4 +44,14 @@ https://github.com/timofurrer/w1thermsensor
 Adafruit Python CharLCD Library
 https://github.com/adafruit/Adafruit_Python_CharLCD
 
+#Usage
+chip-vide-simple.py
+
+This script will print the PID value and current temperature every 5 seconds. It will also set the GPIO pin to HIGH to turn off the relay, and to LOW to turn it on.
+`````
+sudo modprobe w1_therm
+#Control-C out of this command if it hangs. It should still work.
+sudo python chip-vide-simple.py
+#Enter a target temperature
+``````
 
