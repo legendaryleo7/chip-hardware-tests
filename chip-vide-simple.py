@@ -27,7 +27,7 @@ pid.setSampleTime(1)
 while 1:
     pid.update(temperature_in_fahrenheit)
     output = pid.output
-    if output >= 1:
+    if output >= 0:
         GPIO.output(relay_pin, GPIO.LOW)
     else:
         GPIO.output(relay_pin, GPIO.HIGH)
