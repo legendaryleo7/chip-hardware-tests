@@ -8,9 +8,9 @@ import Adafruit_GPIO.PWM as PWM
 import Adafruit_CharLCD as LCD
 
 # Configure Units
-celsius_unit = False  # Default to Farenheight
+celsius_unit = False  # Default to Farnheight
 
-# Default Tempperature
+# Default Temperature
 
 if celsius_unit is False:
     target_temp = 130
@@ -136,10 +136,13 @@ def update_temp(celsius):
 
 
 gpio.setup(relay_pin, GPIO.OUT)
+#We're using Active Low 
 gpio.output(relay_pin, GPIO.HIGH)
 
+#Start the PID
 pid = PID.PID()
 pid.SetPoint = target_temp
+
 pid.setSampleTime(1)
 
 
@@ -149,16 +152,17 @@ while 1:
     output = pid.output
     if output >= 0:
         gpio.output(relay_pin, GPIO.LOW)
-        lcd.set_color(1.0, 0.0, 0.0)
+        lcd.set_color(1.0, 0.0, 0.0) #Red
     else:
         gpio.output(relay_pin, GPIO.HIGH)
-        lcd.set_color(0.0, 0.0, 1.0)
+        lcd.set_color(0.0, 0.0, 1.0) #Blue
 
     lcd.clear()
     lcd.message('TEMP:{0:0.1f}\x01  \nGOAL:{1:0.1f}\x01'.format(temp, pid.SetPoint))
+    
+    # Provide some feedback at the terminal level
     # print("PID OUTOUT IS: " + str(output) +
     #       "and the temperature is: " + str(round(temp, 1)))
-    time.sleep(1)
 
 
 atexit.register(GPIO.cleanup())
