@@ -2,7 +2,7 @@ import time
 
 class PID ():
 	def __init__(self, feedback, output, setpoint, Kp, Ki, Kd, controllerdirection):
-        self.feedback = feedback
+		self.feedback = feedback
         self.output = output
         self.setpoint = setpoint
         self.Kp = Kp
@@ -15,13 +15,13 @@ class PID ():
         self.set_tunings(self.Kp, self.Ki, self.Kd)
         self.last_time = lambda: int(round(time.time() * 1000)) #- self.sample_time
 
-    def compute(self):
-	"""This, as they say, is where the magic happens. This function should be called 
-	every time "void loop()" executes. The function will decide for itself whether a new 
-	pid Output needs to be computed. Returns true when the output is computed, 
-	false when nothing has been done."""
+	def compute(self):
+		"""This, as they say, is where the magic happens. This function should be called 
+		every time "void loop()" executes. The function will decide for itself whether a new 
+		pid Output needs to be computed. Returns true when the output is computed, 
+		false when nothing has been done."""
 
-		if in_auto return False:
+		if in_auto == False:
 			self.now =  lambda: int(round(time.time() * 1000))
 			self.time_change =  self.now - self.last_time
 			
@@ -49,7 +49,8 @@ class PID ():
 				self.last_input = self.input
 				self.last_time = lambda: int(round(time.time() * 1000))
 				return True
-		else return False
+		else: 
+			return False
 		
 	
 	def set_tunings(self, Kp, Ki, Kd):
@@ -91,7 +92,7 @@ class PID ():
 		here."""
 		if min > max:
 			return
-		else
+		else:
 			self.out_min = min
 			self.out_max = max
 		
@@ -112,7 +113,7 @@ class PID ():
 
 		self.new_auto = mode == 'automatic'
 		
-		if self.new_auto == !self.in_auto:
+		if self.new_auto != self.in_auto:
 			self.initialize();
 		self.in_auto = self.new_auto
 	
@@ -144,7 +145,7 @@ class PID ():
 	def get_mode(self):
 		if self/in_auto:
 			return "AUTOMATIC"
-		else
+		else:
 			return "MANUAL"
 	def get_direction(self):
 		return self.controllerdirection
