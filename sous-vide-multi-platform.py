@@ -13,7 +13,7 @@ celsius_unit = False  # Default to Farenheight
 # Default Tempperature
 
 if celsius_unit is False:
-    target_temp = 130
+    target_temp = 132
 elif celsius_unit is True:
     target_temp = 55
 
