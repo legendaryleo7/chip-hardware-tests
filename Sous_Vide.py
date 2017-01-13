@@ -3,8 +3,7 @@ import pid
 import time
 import math
 import Adafruit_GPIO as GPIO
-import Adafruit_GPIO.PWM as PWM
-import Adafruit_CharLCD as LCD
+
 
 class SousVideBaseClass():
     def __init__(self, relay_pin, setpoint, Kp, Ki, Kd, controllerdirection, celsius=False):
