@@ -28,19 +28,13 @@ cd ..
 sudo rm -rf CHIP_IO
 ````
 
-<a href="https://github.com/legendaryleo7/py-gaugette/tree/CHIP-support">Gaugette</a>
+<a href="https://github.com/timofurrer/w1thermsensor">W1ThermSensor</a>
 ````
-git clone -b CHIP-support https://github.com/legendaryleo7/py-gaugette.git
-cd CHIP-support
-sudo python setup.py install
+pip install w1thermsensor
 ````
-
 
 ivPID
 https://github.com/ivmech/ivPID
-
-DS18b20 Library
-https://github.com/timofurrer/w1thermsensor
 
 Adafruit Python CharLCD Library
 https://github.com/adafruit/Adafruit_Python_CharLCD
