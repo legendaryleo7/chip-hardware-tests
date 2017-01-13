@@ -156,6 +156,7 @@ while 1:
 
     lcd.clear()
     lcd.message('TEMP:{0:0.1f}\x01  \nGOAL:{1:0.1f}\x01'.format(temp, pid.SetPoint))
+    print('TEMP:sudo  ' + str(temp) + 'GOAL: ' + str(pid.SetPoint))
     # print("PID OUTOUT IS: " + str(output) +
     #       "and the temperature is: " + str(round(temp, 1)))
     time.sleep(1)
