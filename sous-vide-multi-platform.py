@@ -1,17 +1,17 @@
 from w1thermsensor import W1ThermSensor
 import PID
-import atexit
 import time
 import math
 import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.PWM as PWM
 import Adafruit_CharLCD as LCD
+import gaugette.rotaryencoder
 
+# Configure Defaults
 # Configure Units
 celsius_unit = False  # Default to Farnheight
 
-# Default Temperature
-
+# starting temp
 if celsius_unit is False:
     target_temp = 130
 elif celsius_unit is True:
@@ -35,6 +35,10 @@ if plat is 5:
 
     # Relay Pin Assignment
     relay_pin = "LCD-D13"
+
+    # Rotary Encoder pins
+    rc1_a_pin = "XIO-P0"
+    rc1_b_pin = "XIO-P1"
 
 elif plat is 1:
     # Raspberry Pi configuration:
@@ -95,6 +99,7 @@ lcd = LCD.Adafruit_RGBCharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7,
                               pwm=PWM.get_platform_pwm(pwmtype="softpwm"),
                               initial_color=(1.0, 1.0, 1.0))
 
+
 # Blue startup screen
 lcd.set_color(0.0, 0.0, 1.0)
 lcd.clear()
@@ -136,33 +141,40 @@ def update_temp(celsius):
 
 
 gpio.setup(relay_pin, GPIO.OUT)
-#We're using Active Low 
+# We're using Active Low
 gpio.output(relay_pin, GPIO.HIGH)
 
-#Start the PID
+# Start the PID
 pid = PID.PID()
 pid.SetPoint = target_temp
 
 pid.setSampleTime(1)
 
+# Start the rotary encoder
+encoder1 = gaugette.rotaryencoder.RotaryEncoder.Worker(rc1_a_pin, rc1_b_pin)
+encoder1.start()
 
-while 1:
-    temp = update_temp(celsius_unit)
-    pid.update(temp)
-    output = pid.output
-    if output >= 0:
-        gpio.output(relay_pin, GPIO.LOW)
-        lcd.set_color(1.0, 0.0, 0.0) #Red
-    else:
-        gpio.output(relay_pin, GPIO.HIGH)
-        lcd.set_color(0.0, 0.0, 1.0) #Blue
+try:
+    while 1:
+        temp = update_temp(celsius_unit)
+        pid.update(temp)
+        output = pid.output
+        if output >= 0:
+            gpio.output(relay_pin, GPIO.LOW)
+            lcd.set_color(1.0, 0.0, 0.0) #Red
+        else:
+            gpio.output(relay_pin, GPIO.HIGH)
+            lcd.set_color(0.0, 0.0, 1.0) #Blue
 
-    lcd.clear()
-    lcd.message('TEMP:{0:0.1f}\x01  \nGOAL:{1:0.1f}\x01'.format(temp, pid.SetPoint))
-    
-    # Provide some feedback at the terminal level
-    # print("PID OUTOUT IS: " + str(output) +
-    #       "and the temperature is: " + str(round(temp, 1)))
+        lcd.clear()
+        lcd.message('TEMP:{0:0.1f}\x01  \nGOAL:{1:0.1f}\x01'.format(temp, pid.SetPoint))
+        encoder1_delta = encoder1.get_cycles()
+        if encoder1_delta != 0:
+            pid.SetPoint += encoder1_delta
 
-
-atexit.register(GPIO.cleanup())
+        # Provide some feedback at the terminal level
+        # print("PID OUTOUT IS: " + str(output) +
+        #       "and the temperature is: " + str(round(temp, 1)))
+except KeyboardInterrupt:
+    GPIO.cleanup()
+    pass
