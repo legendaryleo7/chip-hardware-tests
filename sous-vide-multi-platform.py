@@ -154,17 +154,17 @@ try:
         output = pid.output
         if output >= 0:
             gpio.output(relay_pin, GPIO.HIGH)
-            lcd.set_color(1.0, 0.0, 0.0) #Red
+            lcd.set_color(1.0, 0.0, 0.0)  # Red
         else:
             gpio.output(relay_pin, GPIO.LOW)
-            lcd.set_color(0.0, 0.0, 1.0) #Blue
+            lcd.set_color(0.0, 0.0, 1.0)  # Blue
 
         lcd.clear()
         lcd.message('TEMP:{0:0.1f}\x01  \nGOAL:{1:0.1f}\x01'.format(temp, pid.SetPoint))
         encoder1_delta = encoder1.get_delta()
 
-        if encoder1_delta != 0:
-            pid.SetPoint = encoder1_delta * . 25 + pid.SetPoint
+        if encoder1_delta != 0 :
+            pid.SetPoint = (encoder1_delta * . 25) + pid.SetPoint
 
         # Provide some feedback at the terminal level
         # print("PID OUTOUT IS: " + str(output) +
