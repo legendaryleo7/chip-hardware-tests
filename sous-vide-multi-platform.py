@@ -149,6 +149,10 @@ encoder1.start()
 
 try:
     while 1:
+        encoder1_delta = encoder1.get_delta()
+        if encoder1_delta != 0:
+            pid.SetPoint = (encoder1_delta * .25) + pid.SetPoint
+
         temp = update_temp(celsius_unit)
         pid.update(temp)
         output = pid.output
@@ -161,10 +165,6 @@ try:
 
         lcd.clear()
         lcd.message('TEMP:{0:0.1f}\x01  \nGOAL:{1:0.1f}\x01'.format(temp, pid.SetPoint))
-        encoder1_delta = encoder1.get_delta()
-
-        if encoder1_delta != 0:
-            pid.SetPoint = (encoder1_delta * .25) + pid.SetPoint
 
         # Provide some feedback at the terminal level
         # print("PID OUTOUT IS: " + str(output) +
