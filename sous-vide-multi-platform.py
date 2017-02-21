@@ -164,7 +164,7 @@ try:
         encoder1_delta = encoder1.get_delta()
 
         if encoder1_delta != 0:
-            pid.SetPoint = (encoder1_delta * . 25) + pid.SetPoint
+            pid.SetPoint = (encoder1_delta * .25) + pid.SetPoint
 
         # Provide some feedback at the terminal level
         # print("PID OUTOUT IS: " + str(output) +
