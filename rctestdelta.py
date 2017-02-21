@@ -12,6 +12,6 @@ while 1:
     if delta != 0:
         print "rotated %d" % delta
 
-except KeyboardInterrupt:
-    import CHIP_IO.Utilities as UT
-    UT.unexport_all()
+# except KeyboardInterrupt:
+#    import CHIP_IO.Utilities as UT
+#    UT.unexport_all()
