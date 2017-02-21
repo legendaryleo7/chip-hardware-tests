@@ -1,11 +1,9 @@
 from w1thermsensor import W1ThermSensor
 import PID
-import time
-import math
 import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.PWM as PWM
 import Adafruit_CharLCD as LCD
-import gaugette.rotaryencoder
+import rotary_encoder
 
 # Configure Defaults
 # Configure Units
@@ -18,6 +16,7 @@ elif celsius_unit is True:
     target_temp = 55
 
 plat = GPIO.Platform.platform_detect()
+
 if plat is 5:
     # C.H.I.P. CharLCD Configuration
     lcd_rs = 'LCD-D4'
@@ -125,10 +124,6 @@ lcd.create_char(2, [0b11000,
                     0b00011,
                     0b00000])
 
-
-
-
-
 # Define a way to poll the sensor
 def update_temp(celsius):
 
@@ -149,7 +144,7 @@ pid.SetPoint = target_temp
 pid.setSampleTime(1)
 
 # Start the rotary encoder
-encoder1 = gaugette.rotaryencoder.RotaryEncoder.Worker(rc1_a_pin, rc1_b_pin)
+encoder1 = rotary_encoder.RotaryEncoder.Worker(rc1_a_pin, rc1_b_pin)
 encoder1.start()
 
 try:
@@ -167,14 +162,17 @@ try:
         lcd.clear()
         lcd.message('TEMP:{0:0.1f}\x01  \nGOAL:{1:0.1f}\x01'.format(temp, pid.SetPoint))
         encoder1_delta = encoder1.get_delta()
-        
+
         if encoder1_delta != 0:
-            pid.SetPoint += encoder1_delta
+            pid.SetPoint = encoder1_delta * . 25 + pid.SetPoint
 
         # Provide some feedback at the terminal level
         # print("PID OUTOUT IS: " + str(output) +
         #       "and the temperature is: " + str(round(temp, 1)))
 except KeyboardInterrupt:
-    GPIO.cleanup()
+    gpio.output(relay_pin, GPIO.HIGH)
+    lcd.clear()
+    if plat is 5:
+        import CHIP_IO.Utilities as UT
+        UT.unexport_all()
     pass
-
