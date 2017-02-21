@@ -163,7 +163,7 @@ try:
         lcd.message('TEMP:{0:0.1f}\x01  \nGOAL:{1:0.1f}\x01'.format(temp, pid.SetPoint))
         encoder1_delta = encoder1.get_delta()
 
-        if encoder1_delta != 0 :
+        if encoder1_delta != 0:
             pid.SetPoint = (encoder1_delta * . 25) + pid.SetPoint
 
         # Provide some feedback at the terminal level
