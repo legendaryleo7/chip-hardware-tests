@@ -1,5 +1,5 @@
 from w1thermsensor import W1ThermSensor
-from enum import Enum, auto
+from enum import Enum
 import PID
 import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.PWM as PWM
@@ -187,6 +187,6 @@ class SousVide:
 
 
 class ThermalUnits(Enum):
-    CELSIUS = auto()
-    FAHRENHEIT = auto()
+    CELSIUS = 1
+    FAHRENHEIT = 2
 
