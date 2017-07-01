@@ -7,6 +7,11 @@ import Adafruit_CharLCD as LCD
 import rotary_encoder
 
 
+class ThermalUnits(Enum):
+    CELSIUS = 1
+    FAHRENHEIT = 2
+
+
 class SousVide:
     def __init__(self, temp_unit=ThermalUnits.FAHRENHEIT):
 
@@ -186,7 +191,4 @@ class SousVide:
             pass
 
 
-class ThermalUnits(Enum):
-    CELSIUS = 1
-    FAHRENHEIT = 2
 
