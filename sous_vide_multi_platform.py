@@ -169,7 +169,7 @@ class SousVide:
                 if encoder1_delta != 0:
                     self.pid.SetPoint = (encoder1_delta * .25) + self.pid.SetPoint
 
-                temp = self.get_temperature(self.tempUnit)
+                temp = self.get_temperature(self.temp_unit)
                 self.pid.update(temp)
 
                 if self.pid.output >= 0:
