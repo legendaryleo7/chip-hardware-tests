@@ -25,7 +25,7 @@ class SousVide:
         # Start the PID
         self.pid = PID.PID()
         self.temp_unit = temp_unit
-        self.pid.SetPoint = self.set_default_temperature(self.temp_unit)
+        self.pid.SetPoint = self.set_default_temperature()
 
         self.lcd_columns = 16
         self.lcd_rows = 2
