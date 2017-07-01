@@ -3,4 +3,11 @@ from sous_vide_multi_platform import ThermalUnits
 
 
 sousvide = SousVide(ThermalUnits.FAHRENHEIT)
-sousvide.run()
+try :
+    sousvide.run()
+
+except KeyboardInterrupt:
+    
+    import CHIP_IO.Utilities as UT
+
+    UT.unexport_all()
